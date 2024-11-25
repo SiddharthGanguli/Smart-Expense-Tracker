@@ -1,13 +1,165 @@
-body {
+/* Global Styles */
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  /* i want ot fixed the body */
+  background: #f4f7fb;
+  padding: 0;
+  margin: 0;
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;    /* Center vertically */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Gradient background */
+  padding: 20px;
+}
+
+.app-wrapper {
+  position: fixed;
+margin-top: 8rem;
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 20px;
+  background-image: url('https://www.transparenttextures.com/patterns/diagonal-stripes.png'); /* Light texture background */
+  background-size: cover;
+}
+
+/* Title and Header */
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #4C6EF5; /* Indigo color */
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Transaction Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+input[type="number"],
+select,
+input[type="text"],
+input[type="checkbox"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #d2d6dc;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  transition: border 0.3s ease-in-out;
+}
+
+input[type="number"]:focus,
+select:focus,
+input[type="text"]:focus {
+  border-color: #4C6EF5; /* Focus color */
+  outline: none;
+}
+
+/* DatePicker */
+.react-datepicker-wrapper input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #d2d6dc;
+  background-color: #f9fafb;
+  transition: border 0.3s ease-in-out;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #4C6EF5;
+}
+
+/* Submit Button */
+button {
+  padding: 12px;
+  background-color: #4C6EF5;
+  color: white;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #3b57d3; /* Darker shade on hover */
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Transactions List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px; /* Set a max height for the transactions list */
+  overflow-y: auto;  /* Make the list scrollable */
+}
+
+li {
+  padding: 12px;
+  background-color: #f9fafb;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow to transactions */
+  transition: transform 0.2s ease-in-out;
+}
+
+li:hover {
+  transform: translateY(-5px); /* Hover effect for transactions */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-wrapper {
+    width: 90%;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
 }
