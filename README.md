@@ -10,7 +10,6 @@ That's where the Smart Expense Tracker comes in. Designed with college students 
 
 * Stay on top of your spending habits
 * Set realistic budgets for different categories of expenses.
-* Visualize where your money is going through intuitive charts.
 * Learn how to save effectively and plan ahead for big expenses.
 --- 
 
