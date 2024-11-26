@@ -57,3 +57,6 @@ Make sure you have the following installed:
    git clone https://github.com/SiddharthGanguli/Smart-Expense-Tracker-.git
    cd Smart-Expense-Tracker-
 
+2. Run the app locally:
+   ````bash
+   npm start
