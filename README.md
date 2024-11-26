@@ -8,10 +8,10 @@ Managing money can be one of the hardest things to do during college life. Betwe
 
 That's where the Smart Expense Tracker comes in. Designed with college students in mind, this app is a simple yet powerful tool to help you:
 
-Stay on top of your spending habits.
-Set realistic budgets for different categories of expenses.
-Visualize where your money is going through intuitive charts.
-Learn how to save effectively and plan ahead for big expenses.
+* Stay on top of your spending habits
+* Set realistic budgets for different categories of expenses.
+* Visualize where your money is going through intuitive charts.
+* Learn how to save effectively and plan ahead for big expenses.
 --- 
 
 ## Features
