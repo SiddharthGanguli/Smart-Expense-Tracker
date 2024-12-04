@@ -1,123 +1,154 @@
 import React, { useState } from 'react';
-import { getDatabase, ref, push } from "firebase/database";
 
-const TransactionForm = () => {
+const TransactionForm = ({ addTransaction, categories, addCategory, deleteCategory }) => {
   const [amount, setAmount] = useState('');
   const [category, setCategory] = useState('');
   const [date, setDate] = useState('');
-  const [notes, setNotes] = useState('');
+  const [note, setNote] = useState('');
   const [isRecurring, setIsRecurring] = useState(false);
-  const [person, setPerson] = useState(''); // New state for "Lending Money (Udhar)"
+  const [newCategory, setNewCategory] = useState('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (amount && category && date) {
+      addTransaction({ amount, category, date, note, isRecurring });
+      setAmount('');
+      setCategory('');
+      setDate('');
+      setNote('');
+      setIsRecurring(false);
+    }
+  };
 
-    const db = getDatabase();
-    const transactionsRef = ref(db, 'transactions');
+  const handleAddCategory = (e) => {
+    e.preventDefault();
+    if (newCategory) {
+      addCategory(newCategory);
+      setNewCategory('');
+    }
+  };
 
-    // Save transaction data to Firebase
-    const newTransaction = {
-      amount,
-      category,
-      date,
-      notes,
-      isRecurring,
-      person: category === 'Lending Money (Udhar)' ? person : '', // Add person only if category is Udhar
-    };
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
-    push(transactionsRef, newTransaction)
-      .then(() => {
-        alert("Transaction saved successfully!");
-        // Reset form
-        setAmount('');
-        setCategory('');
-        setDate('');
-        setNotes('');
-        setIsRecurring(false);
-        setPerson('');
-      })
-      .catch((error) => {
-        alert("Error saving transaction: " + error.message);
-      });
+  const handleCategorySelect = (category) => {
+    setCategory(category);
+    setIsDropdownOpen(false);
+  };
+
+  const handleDeleteCategory = (category) => {
+    deleteCategory(category);
+    setCategory('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Amount:
+    <form onSubmit={handleSubmit} className="transaction-form">
+      {/* Amount Input */}
+      <div className="form-group">
+        <label htmlFor="amount">Amount:</label>
         <input
+          id="amount"
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="Enter amount"
-          required
+          placeholder="Enter your amount"
+          className="input-box"
         />
-      </label>
+      </div>
 
-      <label>
-        Category:
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required
-        >
-          <option value="" disabled>Select Category</option>
-          <option value="Food">Food</option>
-          <option value="Travel">Travel</option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Shopping">Shopping</option>
-          <option value="Bills">Bills</option>
-          <option value="College Fees">College Fees</option>
-          <option value="Health">Health</option>
-          <option value="Lending Money (Udhar)">Lending Money (Udhar)</option> {/* New Category */}
-          <option value="Other">Other</option>
-        </select>
-      </label>
-
-      {/* Conditional input for Lending Money (Udhar) */}
-      {category === 'Lending Money (Udhar)' && (
-        <label>
-          Person Name:
+      {/* Custom Category Dropdown */}
+      <div className="form-group">
+        <label htmlFor="category">Category:</label>
+        <div className="custom-dropdown">
           <input
             type="text"
-            value={person}
-            onChange={(e) => setPerson(e.target.value)}
-            placeholder="Enter person's name"
-            required
+            value={category}
+            onClick={toggleDropdown}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Select or type a category"
+            className="input-box"
+            readOnly
           />
-        </label>
-      )}
+          {isDropdownOpen && (
+            <div className="category-list">
+              {categories.map((cat) => (
+                <div key={cat} className="category-item">
+                  <span onClick={() => handleCategorySelect(cat)}>{cat}</span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteCategory(cat);
+                    }}
+                    className="delete-category-button"
+                  >
+                    &#x2716; {/* Unicode for cross */}
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
 
-      <label>
-        Date:
+      {/* Date Input */}
+      <div className="form-group">
+        <label htmlFor="date">Date:</label>
         <input
+          id="date"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          required
+          className="input-box"
         />
-      </label>
+      </div>
 
-      <label>
-        Notes:
-        <input
-          type="text"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Add notes (optional)"
-        />
-      </label>
+      {/* Note Input */}
+      <div className="form-group">
+        <label htmlFor="note">Note:</label>
+        <textarea
+          id="note"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Enter a note"
+          className="input-box note-box"
+        ></textarea>
+      </div>
 
-      <label>
-        Recurring:
+      {/* Recurring Checkbox */}
+      <div className="form-group">
+        <label htmlFor="isRecurring">Recurring:</label>
         <input
+          id="isRecurring"
           type="checkbox"
           checked={isRecurring}
           onChange={(e) => setIsRecurring(e.target.checked)}
+          className="checkbox"
         />
-      </label>
+      </div>
 
-      <button type="submit">Save Transaction</button>
+      {/* Submit Button */}
+      <button type="submit" className="submit-button">
+        Add Transaction
+      </button>
+
+      {/* Add Category */}
+      <div className="form-group category-add">
+        <label htmlFor="newCategory">Add New Category:</label>
+        <input
+          id="newCategory"
+          type="text"
+          value={newCategory}
+          onChange={(e) => setNewCategory(e.target.value)}
+          placeholder="Enter new category"
+          className="input-box"
+        />
+        <button onClick={handleAddCategory} className="add-category-button">
+          Add Category
+        </button>
+      </div>
     </form>
   );
 };

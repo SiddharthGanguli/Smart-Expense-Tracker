@@ -1,6 +1,6 @@
 // Import required functions from Firebase SDK
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, push, set } from "firebase/database";
+import { getDatabase, ref, onValue, push, set, remove } from "firebase/database";
 
 // Your Firebase configuration (replace with your own credentials if different)
 const firebaseConfig = {
@@ -21,4 +21,4 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 // Export database and necessary database functions
-export { database, ref, onValue, push, set };
+export { database, ref, onValue, push, set, remove };
