@@ -7,7 +7,6 @@
 }
 
 body {
-  /* i want ot fixed the body */
   background: #f4f7fb;
   padding: 0;
   margin: 0;
@@ -16,123 +15,184 @@ body {
 /* App Container */
 .app-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center;    /* Center vertically */
-  min-height: 100vh;
-  background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* Gradient background */
-  padding: 20px;
-}
-
-.app-wrapper {
-  position: fixed;
-margin-top: 8rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  max-height: 100vh;
   width: 100%;
-  max-width: 500px;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 20px;
-  background-image: url('https://www.transparenttextures.com/patterns/diagonal-stripes.png'); /* Light texture background */
-  background-size: cover;
+  background: linear-gradient(135deg, #dceafd, #dfe0e1); /* Gradient background */
+  box-sizing: border-box; /* Prevent child elements from overflowing */
 }
 
-/* Title and Header */
-h1 {
-  text-align: center;
+/* Left Side Content */
+.left-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 30%;
+  background-color: white;
+  height: 46rem;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.left-side h1 {
   font-size: 2.5rem;
-  color: #4C6EF5; /* Indigo color */
+  color: #4C6EF5;
+  text-align: center;
+}
+
+/* Right Side Content */
+.right-side {
+  width: 65%;
+  height: 46rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  grid-template-rows: auto; /* Adjust row height automatically */
+  gap: 10px;
+  margin-top: 20px;
+  background-color: #d2d6dc;
+  padding: 15px;
+}
+
+.One, .Two, .Three, .Four {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the Upcoming Investments Section */
+.investments-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2d3748;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Container for Upcoming Investments */
+.Three {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.investments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Grid items adjust based on screen size */
+  gap: 20px;
+  width: 100%;
   margin-bottom: 20px;
 }
 
-h2 {
-  font-size: 1.8rem;
-  color: #2d3748;
-  margin-top: 20px;
-  text-align: center;
+.investment-item {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
 }
 
-/* Transaction Form */
-form {
+.investment-item:hover {
+  transform: translateY(-5px);
+}
+
+.progress-bar-container {
+  margin-top: 15px;
+  background-color: #e0e0e0;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+}
+
+.show-more-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 20px auto;
+  transition: background-color 0.3s ease;
+}
+
+.show-more-btn:hover {
+  background-color: #45a049;
+}
+
+/* Transaction Form Styles */
+.transaction-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-label {
-  font-weight: 600;
-  color: #2d3748;
-}
-
-input[type="number"],
-select,
-input[type="text"],
-input[type="checkbox"] {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #d2d6dc;
-  border-radius: 8px;
-  background-color: #f9fafb;
-  transition: border 0.3s ease-in-out;
-}
-
-input[type="number"]:focus,
-select:focus,
-input[type="text"]:focus {
-  border-color: #4C6EF5; /* Focus color */
-  outline: none;
-}
-
-/* DatePicker */
-.react-datepicker-wrapper input {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #d2d6dc;
-  background-color: #f9fafb;
-  transition: border 0.3s ease-in-out;
-}
-
-/* Checkbox */
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  border-radius: 5px;
+  padding: 20px;
   border: 1px solid #ccc;
-  background-color: #ffffff;
-  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+  background-color: #f9f9f9;
 }
 
-input[type="checkbox"]:checked {
-  background-color: #4C6EF5;
+.form-group {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Submit Button */
-button {
-  padding: 12px;
-  background-color: #4C6EF5;
-  color: white;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  cursor: pointer;
+.form-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-box, .note-box {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.note-box {
+  resize: none;
+  height: 100px;
+}
+
+.submit-button,
+.add-category-button {
+  padding: 10px 15px;
+  font-size: 16px;
   border: none;
-  transition: background-color 0.3s ease-in-out;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: #3b57d3; /* Darker shade on hover */
+.submit-button:hover,
+.add-category-button:hover {
+  background-color: #45a049;
 }
 
-button:focus {
-  outline: none;
-}
-
-/* Transactions List */
+/* Transactions List Styles */
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 400px; /* Set a max height for the transactions list */
-  overflow-y: auto;  /* Make the list scrollable */
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 li {
@@ -140,26 +200,75 @@ li {
   background-color: #f9fafb;
   margin: 10px 0;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow to transactions */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
 }
 
 li:hover {
-  transform: translateY(-5px); /* Hover effect for transactions */
+  transform: translateY(-5px);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .app-wrapper {
-    width: 90%;
+  .right-side {
+    width: 100%;
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 15px;
+  }
+
+  .One, .Two, .Three, .Four {
+    margin-bottom: 10px; /* Add spacing between items when stacked */
+  }
+
+  .Three {
     padding: 15px;
   }
 
-  h1 {
-    font-size: 2rem;
+  .investments-grid {
+    grid-template-columns: 1fr; /* Stack items vertically on mobile */
   }
 
-  h2 {
-    font-size: 1.5rem;
+  .show-more-btn {
+    padding: 8px 12px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .left-side, .right-side {
+    width: 100%; /* Full width on smaller screens */
+    padding: 10px;
+  }
+
+  .One, .Two, .Three, .Four {
+    padding: 10px;
+    box-shadow: none; /* Simplify visuals for small screens */
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .input-box, .note-box {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .submit-button, .add-category-button {
+    font-size: 12px;
+    padding: 6px 10px;
   }
 }
+html, body {
+  overflow-x: hidden;  /* Prevent horizontal scrolling */
+  width: 100%;          /* Ensure the width is 100% */
+}
+img, .investments-grid, .transaction-form {
+  max-width: 100%;    /* Prevent overflow by ensuring content fits within its container */
+  height: auto;       /* Allow content to scale proportionally */
+}
+
