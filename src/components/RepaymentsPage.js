@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { database, ref, onValue } from "./firebase"; // Adjust the import path
 import { useNavigate } from "react-router-dom";
+import "./RepaymentsPage.css"; // Import the CSS file for styling
 
 const RepaymentsPage = () => {
   const [repayments, setRepayments] = useState([]);
@@ -29,20 +30,33 @@ const RepaymentsPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>All Repayments</h1>
-      <button onClick={() => navigate("/")}>Back to Dashboard</button>
-      <ul>
-        {repayments.map((repayment) => (
-          <li key={repayment.id}>
-            <strong>{repayment.category}</strong>: ${repayment.amount} - Due in{" "}
-            {Math.ceil(
-              (new Date(repayment.date) - new Date()) / (1000 * 60 * 60 * 24)
-            )}{" "}
-            days
-          </li>
-        ))}
-      </ul>
+    <div className="repayments-container">
+      <h1>Upcoming Repayments</h1>
+      <button className="back-to-dashboard-btn" onClick={() => navigate("/")}>
+        Back to Dashboard
+      </button>
+      {repayments.length > 0 ? (
+        <div className="repayments-list">
+          {repayments.map((repayment) => (
+            <div key={repayment.id} className="repayment-card">
+              <div className="repayment-info">
+                <strong>{repayment.category}</strong>: ₹{repayment.amount}
+              </div>
+              <div className="repayment-due">
+                <span>Due in </span>
+                <strong>
+                  {Math.ceil(
+                    (new Date(repayment.date) - new Date()) / (1000 * 60 * 60 * 24)
+                  )}{" "}
+                  days
+                </strong>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No upcoming repayments found.</p>
+      )}
     </div>
   );
 };

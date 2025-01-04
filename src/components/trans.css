@@ -1,0 +1,308 @@
+/* Scoped Transaction Form Styles */
+.transaction-form-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 10px; /* Padding to avoid touching edges */
+  }
+  
+  .transaction-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Form Group (label + input) */
+  .transaction-form .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  
+  /* Input and Textarea Styles */
+  .transaction-form .input-box {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-sizing: border-box; /* Ensure padding doesn't cause overflow */
+  }
+  
+  .transaction-form .input-box:focus {
+    border-color: #6c63ff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(108, 99, 255, 0.6);
+  }
+  
+  /* Note Input (Textarea) */
+  .transaction-form .note-box {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  /* Checkbox */
+  .transaction-form .checkbox {
+    margin-left: 10px;
+  }
+  
+  /* Custom Dropdown */
+  .transaction-form .custom-dropdown {
+    position: relative;
+  }
+  
+  .transaction-form .custom-dropdown input {
+    cursor: pointer;
+  }
+  
+  /* Dropdown Options */
+  .transaction-form .category-list {
+    position: absolute;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    top: 100%;
+    left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  /* Category Items */
+  .transaction-form .category-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .transaction-form .category-item:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .transaction-form .selected-category {
+    font-weight: bold;
+    color: #6c63ff;
+  }
+  
+  .transaction-form .category-name {
+    color: #333;
+  }
+  
+  .transaction-form .delete-category-button {
+    background: none;
+    border: none;
+    color: #ff6347;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .transaction-form .delete-category-button:hover {
+    color: #d9534f;
+  }
+  
+  /* Submit Button */
+  .transaction-form .submit-button {
+    background-color: #6c63ff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .transaction-form .submit-button:hover {
+    background-color: #5a54e3;
+  }
+  
+  /* Add Category Section */
+  .transaction-form .category-add {
+    display: flex;
+    flex-wrap: wrap;  /* Allow wrapping */
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .transaction-form .category-add input {
+    flex-grow: 1;
+    margin-right: 10px;
+    min-width: 200px; /* Prevent input from shrinking too small */
+  }
+  
+  .transaction-form .add-category-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+  
+  .transaction-form .add-category-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Label Styling */
+  .transaction-form label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .transaction-form-container {
+      width: 100%;
+      padding: 15px;
+    }
+  
+    .transaction-form {
+      padding: 15px;
+      max-width: 100%;
+    }
+  
+    .transaction-form .category-add {
+      flex-direction: column;  /* Stack input and button on smaller screens */
+      align-items: flex-start;
+    }
+  
+    .transaction-form .category-add input {
+      width: 100%; /* Ensure input takes full width */
+      margin-right: 0;
+      margin-bottom: 10px; /* Add space between input and button */
+    }
+  
+    .transaction-form .add-category-button {
+      width: 100%;
+    }
+  }
+  /* Add New Category Button */
+.add-category-button {
+    background-color: #6c63ff;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .add-category-button:hover {
+    background-color: #5a54e3;
+  }
+  
+  /* Conditional Input for New Category */
+  .new-category-input {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .new-category-input .input-box {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .new-category-input .submit-category-button {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .new-category-input .submit-category-button:hover {
+    background-color: #218838;
+  }
+  /* Add this to your existing CSS file */
+
+.input-error {
+    border: 2px solid red;
+  }
+  
+  .error-message {
+    color: #d9534f;
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: normal;
+  }
+  .category-input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .add-category-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 4px 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .add-category-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .new-category-input {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .new-category-input input {
+    margin-bottom: 5px;
+  }
+  
+  .new-category-input button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .new-category-input button:hover {
+    background-color: #45a049;
+  }
+  
+  .suggested-category {
+    color: #888;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
