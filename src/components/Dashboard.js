@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
+import './Dashboard.css';
+
 import { Bar, Pie } from 'react-chartjs-2';
 import { database, ref, onValue, push, set, remove } from './firebase';
 import TransactionForm from './TransactionForm';
@@ -116,8 +118,39 @@ const Dashboard = () => {
     setMonthlyTotals(totals);
   };
 
-  const handleShowMoreClick = () => navigate('/repayments');
+  // Calculate total investment for current month
+  const getTotalInvestmentForCurrentMonth = () => {
+    const currentDate = new Date();
+    const currentMonthKey = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}`;
+    return monthlyTotals[currentMonthKey] || 0;
+  };
 
+  // Find highest investment month
+  const getHighestInvestmentMonth = () => {
+    let highestMonth = '';
+    let highestAmount = 0;
+    Object.entries(monthlyTotals).forEach(([monthKey, total]) => {
+      if (total > highestAmount) {
+        highestAmount = total;
+        highestMonth = monthKey;
+      }
+    });
+
+    if (highestMonth) {
+      const [year, month] = highestMonth.split('-');
+      const monthName = new Date(`${year}-${month}-01`).toLocaleString('default', { month: 'long' });
+      return `${monthName} ${year}`;
+    }
+    return '';
+  };
+
+  // Calculate total investment and highest investment month
+  const totalCurrentMonthInvestment = getTotalInvestmentForCurrentMonth();
+  const highestInvestmentMonth = getHighestInvestmentMonth();
+
+  // Chart Data for Categories
   const categoryChartData = {
     labels: Object.keys(categoryTotals),
     datasets: [
@@ -128,6 +161,7 @@ const Dashboard = () => {
     ],
   };
 
+  // Chart Data for Monthly Totals
   const monthlyChartData = {
     labels: Object.keys(monthlyTotals),
     datasets: [
@@ -139,67 +173,86 @@ const Dashboard = () => {
     ],
   };
 
+  // Fix for Upcoming Repayment Logic (If Required)
+  const sortedRepayments = transactions
+    .filter((txn) => txn.isRecurring)
+    .sort((a, b) => new Date(a.date) - new Date(b.date)); // Sorting by date
+
+  const groupedRepayments = sortedRepayments.reduce((groups, txn) => {
+    const dueDate = new Date(txn.date).toLocaleDateString(); // Convert to date string for comparison
+    if (!groups[dueDate]) groups[dueDate] = [];
+    groups[dueDate].push(txn);
+    return groups;
+  }, {});
+
+  const closestRepaymentDates = Object.keys(groupedRepayments)
+    .sort((a, b) => new Date(a) - new Date(b));
+
   return (
     <div className="app-container">
-      {!showHistory ? (
-        <>
-          <div className="left-side">
-            <h1>Expense Tracker</h1>
-            <TransactionForm 
-              addTransaction={addTransaction} 
-              categories={categories} 
-              addCategory={addCategory} 
-              deleteCategory={deleteCategory} 
-            />
-          </div>
+      <div className="left-side">
+        <h1>Expense Tracker</h1>
+        <TransactionForm 
+          addTransaction={addTransaction} 
+          categories={categories} 
+          addCategory={addCategory} 
+          deleteCategory={deleteCategory} 
+        />
+      </div>
 
-          <div className="right-side">
-            <div className="One">
-              <Pie data={categoryChartData} />
-            </div>
-            <div className="Two">
-              <Bar data={monthlyChartData} />
-            </div>
-            <div className="Three">
-              <h2 className="investments-heading">Upcoming Investments</h2>
-              {transactions.filter((txn) => txn.isRecurring).length > 0 ? (
-                <>
+      <div className="right-side">
+        <div className="One">
+          <Pie data={categoryChartData} />
+        </div>
+        <div className="Two">
+          <Bar data={monthlyChartData} />
+        </div>
+        <div className="Three">
+          <h2 className="investments-heading">Upcoming Investments</h2>
+          {closestRepaymentDates.length > 0 ? (
+            <>
+              {closestRepaymentDates.slice(0, 1).map((date) => (
+                <div key={date} className="investments-group">
+                  <h3>Due on {date}</h3>
                   <div className="investments-grid">
-                    {transactions
-                      .filter((txn) => txn.isRecurring)
-                      .slice(0, 2)
-                      .map((txn) => (
-                        <div key={txn.id} className="investment-item">
-                          <div className="investment-details">
-                            <strong>{txn.category}</strong>: ${txn.amount}
-                          </div>
+                    {groupedRepayments[date].map((txn) => (
+                      <div key={txn.id} className="investment-item">
+                        <div className="investment-details">
+                          <strong>{txn.category}</strong>: ₹{txn.amount}
                         </div>
-                      ))}
+                        <div className="investment-due">
+                          Due in {Math.ceil(
+                            (new Date(txn.date) - new Date()) / (1000 * 60 * 60 * 24)
+                          )} days
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <button onClick={handleShowMoreClick} className="show-more-btn">Show More</button>
-                </>
-              ) : (
-                <p>No upcoming investments found.</p>
-              )}
-            </div>
-            <div className="Four">
-              <button onClick={() => setShowHistory(true)}>View Transaction History</button>
+                </div>
+              ))}
+              <button onClick={() => navigate('/repayments')} className="show-more-btn">Show More</button>
+            </>
+          ) : (
+            <p>No upcoming repayments found.</p>
+          )}
+        </div>
+
+        {/* Updated Fourth Div */}
+        <div className="fourth-div-container">
+          <h2 className="fourth-div-heading">Investment Summary</h2>
+          <div className="fourth-div-info">
+            <div className="low-light-box">
+              <p><span className="info-bold">Total Investment for Current Month:</span> ₹{totalCurrentMonthInvestment}</p>
+              <p><span className="info-bold">Highest Investment Month:</span> {highestInvestmentMonth}</p>
             </div>
           </div>
-        </>
-      ) : (
-        <div>
-          <button onClick={() => setShowHistory(false)}>Back to Dashboard</button>
-          <h2>Transaction History</h2>
-          <ul>
-            {transactions.map((txn) => (
-              <li key={txn.id}>
-                ${txn.amount} - {txn.category} ({new Date(txn.date).toLocaleDateString()})
-              </li>
-            ))}
-          </ul>
+          <div className="fourth-div-button-container">
+            <Link to="/viewtransaction">
+              <button className="view-history-btn">View Transaction History</button>
+            </Link>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
