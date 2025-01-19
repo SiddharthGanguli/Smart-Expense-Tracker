@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Smart-Expense-Tracker/static/css/main.4a334aad.css",
-    "main.js": "/Smart-Expense-Tracker/static/js/main.24ce46c5.js",
-    "static/js/488.25705746.chunk.js": "/Smart-Expense-Tracker/static/js/488.25705746.chunk.js",
+    "main.css": "/Smart-Expense-Tracker/static/css/main.60964513.css",
+    "main.js": "/Smart-Expense-Tracker/static/js/main.2d8bc582.js",
+    "static/js/714.22aeaa65.chunk.js": "/Smart-Expense-Tracker/static/js/714.22aeaa65.chunk.js",
     "index.html": "/Smart-Expense-Tracker/index.html",
-    "main.4a334aad.css.map": "/Smart-Expense-Tracker/static/css/main.4a334aad.css.map",
-    "main.24ce46c5.js.map": "/Smart-Expense-Tracker/static/js/main.24ce46c5.js.map",
-    "488.25705746.chunk.js.map": "/Smart-Expense-Tracker/static/js/488.25705746.chunk.js.map"
+    "main.60964513.css.map": "/Smart-Expense-Tracker/static/css/main.60964513.css.map",
+    "main.2d8bc582.js.map": "/Smart-Expense-Tracker/static/js/main.2d8bc582.js.map",
+    "714.22aeaa65.chunk.js.map": "/Smart-Expense-Tracker/static/js/714.22aeaa65.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a334aad.css",
-    "static/js/main.24ce46c5.js"
+    "static/css/main.60964513.css",
+    "static/js/main.2d8bc582.js"
   ]
 }
